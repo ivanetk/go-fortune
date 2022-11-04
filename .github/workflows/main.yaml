@@ -3,7 +3,7 @@ name: DipSA Workshop workflow
 on:
   push:
     branches:
-    - "v[0-9].[0-9]" #[a-zA-Z0-9]+ means one or more of the preceding characters (a-z, A-Z or 0-9). #release/[a-zA-Z0-9]+ will not match release/
+    - "v[0-9]*.[0-9]*" #[a-zA-Z0-9]+ means one or more of the preceding characters (a-z, A-Z or 0-9). #release/[a-zA-Z0-9]+ will not match release/
 
 jobs:
   build_and_deploy:
@@ -26,9 +26,6 @@ jobs:
 
     - name: Install packages
       run: yarn install --frozen-lockfile
-
-    - name: Run tests
-      run: yarn test
 
     - name: Install Railway
       run: npm i -g @railway/cli
