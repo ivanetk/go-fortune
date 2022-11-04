@@ -8,6 +8,8 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    # if commit message starts with #NORUN, stop pipeline
+    if: ${{ github.event.head_commit.message[0] != '#NORUN' }}
     
     steps:
     - name: Echo the branch name
