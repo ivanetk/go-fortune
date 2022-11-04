@@ -1,5 +1,4 @@
 name: DipSA Workshop workflow
-#testing norun filter
 on:
   push:
     branches:
@@ -9,7 +8,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     # if commit message starts with #NORUN, stop pipeline
-    #if: ${{ !contains(github.event.head_commit.message[0], '#NORUN' }}
+    if: ${{ !startsWith(github.event.head_commit.message[0], '#NORUN' }}
     
     steps:
     - name: Echo the branch name
@@ -22,9 +21,6 @@ jobs:
     
     - name: Echo commit message
       run: echo "The commit message is ${{ github.event.head_commit.message }}"
-
-    - name: Echo the head of the commit message
-      run: echo "The head is ${{ github.event.head_commit.message[0] }}"
 
     # Actions to deploy railway
     - name: Use Node 16
