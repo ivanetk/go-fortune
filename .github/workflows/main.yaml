@@ -42,7 +42,7 @@ jobs:
 
     # Action to create release
     - name: Create Release
-    - uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@v1
       with:
         commit: ${{ github.ref_name }}
         tag: ${{ github.ref_name }}
