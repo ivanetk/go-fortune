@@ -1,4 +1,5 @@
 name: DipSA Workshop workflow
+# test norun filter
 on:
   push:
     branches:
