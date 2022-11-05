@@ -39,7 +39,7 @@ jobs:
       run: railway up
       env:
         RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
+  
     # Action to create release
     - name: Create Release
       uses: ncipollo/release-action@v1
@@ -47,5 +47,71 @@ jobs:
         commit: ${{ github.ref_name }}
         tag: ${{ github.ref_name }}
         token: ${{ secrets.GITHUB_TOKEN }}
+
+
+    # Action to send Slack notification
+    - name: Send custom JSON data to Slack workflow
+      id: slack
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        # For posting a rich message using Block Kit
+        payload: |
+          {
+            "blocks": [
+              {
+                "type": "header",
+                "text": {
+                  "type": "plain_text",
+                  "text": "DipSA55 CI/CD Assignment Submission"
+                }
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Name:*\nIvan Eng Tse Khiang"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Matriculation:*\nA0140715N"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Email:*\ne0004625@u.nus.edu"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Repository:*\n${{ github.repositoryUrl }}"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "fields": [
+                  {
+                    "type": "mrkdwn",
+                    "text": "*Deployment:*\n${{ secrets.RAILWAY_URL }}"
+                  }
+                ]
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "<${{ secrets.RAILWAY_URL }}|Open Application>"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.TEST_WEBHOOK }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
 
 
